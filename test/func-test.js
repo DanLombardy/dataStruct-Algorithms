@@ -3,54 +3,73 @@
 var mocha = require('mocha');
 var expect = require('chai').expect;
 var arrayFunc = require(__dirname + '/../arrayFunc');
+var unique = require(__dirname + "/../lib/unique");
+var frequency = require(__dirname + "/../lib/frequency");
 
 
-describe('a function that mimics push', function(){
-  it('adds a new element to an array at the end', function(){
+describe('newPush()', function(){
+  it('adds a new element to an array at the end and return array', function(){
       var testArray = [1,2,3,4,5];
+      var runFunc = arrayFunc.newPush(testArray, 10);
 
-      expect(arrayFunc.newPush(testArray, 10)).to.be.an('array');
-      expect(arrayFunc.newPush(testArray, 10)).to.equal([1,2,3,4,5]);
+      expect(runFunc).to.be.a('number');
+      expect(runFunc).to.eql(6);
   });
 
 });
 
-describe('a function that mimics array.pop()', function(){
-  it('removes the first element from an array', function(){
+describe('newPop()', function(){
+  it('removes the last element from an array and returns array', function(){
     var testArray = [1,2,3,4,5];
+    var runFunc = arrayFunc.newPop(testArray);
 
-    expect(arrayFunc.newPop(testArray)).to.be.an('array');
-    expect(arrayFunc.newPop(testArray)).to.eql([1,2,3,4]);
+    expect(runFunc).to.be.a('number');
+    expect(runFunc).to.eql(5);
 
   });
 });
 
-describe('a function that removes the first index from an array and returns an array', function(){
-  it('adds a an argument to the front of an array', function(){
+describe('newShift()', function(){
+  it('removes the first element from an array and returns that element', function(){
     var testArray = [1,2,3,4,5];
+    var runFunc = arrayFunc.newShift(testArray);
 
-    expect(arrayFunc.newShift(testArray)).to.be.a('number');
-    expect(arrayFunc.newShift(testArray)).to.equal(4);
+    expect(runFunc).to.be.a('number');
+    expect(runFunc).to.eql(1);
+    expect(testArray.length).to.eql(4);
 
   });
 });
 
-describe('a function that adds an argument to the first index of an array and returns a length', function(){
-  it('removes the last element from an array', function(){
+describe('newUnshift()', function(){
+  it('removes the first element of an array and returns that element', function(){
     var testArray = [1,2,3,4,5];
+    var runFunc = arrayFunc.newUnshift(testArray, 10);
 
-    expect(arrayFunc.newUnshift(testArray, 10)).to.be.a('number');
-    expect(arrayFunc.newUnshift(testArray, 10)).to.equal([10,1,2,3,4,5]);
+    expect(runFunc).to.be.a('number');
+    expect(runFunc).to.eql(6);
+
+  });
+});
+
+describe('unique()', function(){
+  it('takes an array and removes any duplicate numbers, returns array', function(){
+    var testArray = [1,2,2,3,2,4,5];
+    var runFunc = unique(testArray);
+
+    expect(runFunc).to.be.an('array');
+    expect(runFunc).to.eql([1,3,4,5]);
 
   });
 });
 
-describe('function removes any duplicate indexes in an array', function(){
-  it('removes the last element from an array', function(){
-    var testArray = [1,2,3,2,4,5];
+describe('frequency()', function(){
+  it('takes an array and returns an array with the most common letter(s)', function(){
+    var testArray = ['cat', 'dog', 'log', 'dogs', 'Donkey', 'dapper'];
+    var runFunc = frequency(testArray);
 
-    expect(arrayFunc.unique(testArray)).to.be.a('array');
-    expect(arrayFunc.unique(testArray)).to.equal([1,2,3,4,5]);
+    expect(runFunc).to.be.an('array');
+    expect(runFunc).to.eql(['d', 'o']);
 
-  });
-});
+  })
+})
